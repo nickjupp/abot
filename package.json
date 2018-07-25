@@ -9,7 +9,6 @@
     "hubot-diagnostics": "0.0.2",
     "hubot-google-images": "^0.2.7",
     "hubot-google-translate": "^0.2.1",
-    "hubot-help": "^0.2.2",
     "hubot-maps": "0.0.3",
     "hubot-pugme": "^0.1.1",
     "hubot-redis-brain": "0.0.4",
@@ -20,5 +19,8 @@
   },
   "engines": {
     "node": "0.10.x"
-  }
+  },
+  "scripts": {
+  "start": "hubot --adapter slack"
+}
 }
