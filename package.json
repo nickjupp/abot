@@ -21,6 +21,6 @@
     "node": "0.10.x"
   },
   "scripts": {
-  "start": "hubot --adapter slack"
-}
+    "start": "hubot --adapter slack"
+  }
 }
