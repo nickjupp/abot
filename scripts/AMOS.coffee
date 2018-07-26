@@ -24,7 +24,7 @@ module.exports = (robot) ->
   robot.respond /AMOS namespaces/i, (msg) ->
     robot.logger.info("AMOS: namespaces called")
     url = robot.brain.get 'amos_serverurl'
-    api = "/oapi/v1/net"
+    api = "/oapi/v1/netnamespaces"
     auth = "Bearer #{robot.brain.get 'amos_auth'}"
     msg.http(url + api)
       .header('Authorization', auth)
