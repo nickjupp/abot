@@ -21,20 +21,35 @@
 
 module.exports = (robot) ->
   # list the namespaces with oapi/v1/netnamespaces call
-  robot.respond /AMOS namespaces/i, (res) ->
+  robot.respond /AMOS namespaces/i, (msg) ->
     robot.logger.info("AMOS: namespaces called")
     url = robot.brain.get 'amos_serverurl'
     api = "/oapi/v1/netnamespaces"
     auth = "Bearer #{robot.brain.get 'amos_auth'}"
-    res.reply(url+api).header('Authorization', auth)
-    msg.http(url + api)
+    msg.reply(url+api)
+    msg.reply(auth)
+
+    # needed while ssl cert is missing from cluster
+    options = rejectUnauthorized: false
+
+    msg.http(url + api,options)
       .header('Authorization', auth)
       .get() (err, res, body) ->
       # err & response status checking code here
       # your code here
-        data=JSON.parse body
-        for key, value of data
-          msg.send "#{key} - #{value}"
+        data=JSON.parse(body)
+#        for key, value of data
+#          msg.send "#{key} - #{value}"
+        msg.send "Kind: #{data.kind}"
+        msg.send "apiVersion: #{data.apiVersion}\n"
+
+        items=data.items
+
+        for key of items
+          netname=items[key].netname
+          msg.send "\n"
+          for i, value of items[key].metadata
+            msg.send "#{i} - #{value}"
 
   # add configuration for the active server to the hubot datastore
   robot.respond /AMOS set server (.*)/i, (res)->
