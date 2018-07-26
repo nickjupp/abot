@@ -26,13 +26,13 @@ module.exports = (robot) ->
     url = robot.brain.get 'amos_serverurl'
     api = "/oapi/v1/netnamespaces"
     auth = "Bearer #{robot.brain.get 'amos_auth'}"
+    res.reply(url+api)
     msg.http(url + api)
       .header('Authorization', auth)
       .get() (err, res, body) ->
       # err & response status checking code here
       # your code here
         data=JSON.parse body
-
         for key, value of data
           msg.send "#{key} - #{value}"
 
