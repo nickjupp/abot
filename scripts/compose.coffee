@@ -49,7 +49,7 @@ module.exports = (robot) ->
 
   # add configuration for the active server authentication to the hubot datastor
 e
-  robot.respond /compose set serverauth (.*)/i, (res)->
+robot.respond /compose set serverauth (.*)/i, (res)->
     robot.logger.info("compose: set serverauth called")
     auth =res.match[1]
     res.reply "Thanks! Added authentication details to the brain"
