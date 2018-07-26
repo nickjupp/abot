@@ -41,17 +41,17 @@ module.exports = (robot) ->
     robot.logger.info("AMOS: set server called")
     server =res.match[1]
     serverurl = "https://#{server}.amosdemo.io:8443"
-    res.reply "Adding #{server} to the brain "
-    robot.brain.set 'server', server
-    robot.brain.set 'serverurl', serverurl
+    res.reply "Adding #{server} to the brain as #{serverurl}"
+    robot.brain.set 'amos_server', server
+    robot.brain.set 'amos_serverurl', serverurl
     robot.logger.info("AMOS: server set to #{server}")
 
   # add configuration for the active server authentication to the hubot datastore
   robot.respond /AMOS set serverauth (.*)/i, (res)->
     robot.logger.info("AMOS: set serverauth called")
-    auth =res.match[1]
+    amos_auth =res.match[1]
     res.reply "Thanks! Added authentication details to the brain"
-    robot.brain.set 'amos_auth', auth
+    robot.brain.set 'amos_auth', amos_auth
     robot.logger.info("AMOS: auth stored")
 
   # list the configuration of the active server from the datastore
@@ -60,4 +60,4 @@ module.exports = (robot) ->
     server = robot.brain.get 'amos_server'
     serverurl = robot.brain.get 'amos_serverurl'
     serverauth = robot.brain.get 'amos_auth'
-    res.reply "The configured server is *#{amos_server}* at #{amos_serverurl}\nThe authentication digest is _#{amos_serverauth}_"
+    res.reply "The configured server is *#{server}* at #{serverurl}\nThe authentication digest is _#{serverauth}_"
