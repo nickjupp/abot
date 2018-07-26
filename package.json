@@ -5,6 +5,7 @@
   "author": "Nick Jupp",
   "description": "Hubot running on OpenShift with Slack adapter",
   "dependencies": {
+    "coffee-script": "^1.12.6",
     "hubot": "^3.0.1",
     "hubot-diagnostics": "0.0.2",
     "hubot-google-images": "^0.2.7",
