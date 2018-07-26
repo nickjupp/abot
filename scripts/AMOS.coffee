@@ -21,11 +21,11 @@
 
 module.exports = (robot) ->
   # list the status with the /v1/server/up/extended call
-  robot.respond /AMOS status/i, (msg) ->
-    robot.logger.info("AMOS: status called")
+  robot.respond /AMOS namespaces/i, (msg) ->
+    robot.logger.info("AMOS: namespaces called")
     url = robot.brain.get 'amos_serverurl'
-    api = "/oapi/v1"
-    auth = "Basic #{robot.brain.get 'amos_auth'}"
+    api = "/oapi/v1/net"
+    auth = "Bearer #{robot.brain.get 'amos_auth'}"
     msg.http(url + api)
       .header('Authorization', auth)
       .get() (err, res, body) ->
