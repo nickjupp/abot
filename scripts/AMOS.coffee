@@ -8,6 +8,7 @@
 #
 # Commands:
 #   hubot AMOS set server <server name> - configure the compose server
+#   hubot AMOS set serverIP <server IP address> - configure the compose server IP address
 #   hubot AMOS set serverauth - store authentication digest for the server
 #   hubot AMOS status - queries the configured server status
 #   hubot AMOS list server - lists the configured server
@@ -48,12 +49,15 @@ module.exports = (robot) ->
 #        msg.send data.kind
 #
         items=data.items
-#
+
         for key of items
           netname=items[key].netname
           msg.send "\n"
-          for i, value of items[key].metadata
-            msg.send "#{i} - #{value}"
+          msg.send "Name: #{items[key].metadata.name}"
+          msg.send "Selflink: #{url + items[key].metadata.selfLink}"
+          msg.send "Created: #{items[key].metadata.creationTimestamp}"
+#          for i, value of items[key].metadata
+#            msg.send "#{i} - #{value}"
 
   # add configuration for the active server to the hubot datastore
   robot.respond /AMOS set server (.*)/i, (res)->
