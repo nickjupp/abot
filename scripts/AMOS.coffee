@@ -35,7 +35,7 @@ module.exports = (robot) ->
       .get() (err, res, body) ->
       # err & response status checking code here
       # your code here
-        msg.send body
+        msg.send "Body: #{body}"
         try
           data = JSON.parse body
         catch err
@@ -45,15 +45,15 @@ module.exports = (robot) ->
 #          msg.send "#{key} - #{value}"
 #          msg.send "Kind: #{data.kind}"
 #          msg.send "apiVersion: #{data.apiVersion}\n"
-        msg.send data.kind
-
-        items=data.items
-
-        for key of items
-          netname=items[key].netname
-          msg.send "\n"
-          for i, value of items[key].metadata
-            msg.send "#{i} - #{value}"
+#        msg.send data.kind
+#
+#        items=data.items
+#
+#        for key of items
+#          netname=items[key].netname
+#          msg.send "\n"
+#          for i, value of items[key].metadata
+#            msg.send "#{i} - #{value}"
 
   # add configuration for the active server to the hubot datastore
   robot.respond /AMOS set server (.*)/i, (res)->
