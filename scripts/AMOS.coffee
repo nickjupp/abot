@@ -26,8 +26,6 @@ module.exports = (robot) ->
     url = robot.brain.get 'amos_serverurl'
     api = "/oapi/v1/netnamespaces"
     auth = "Bearer #{robot.brain.get 'amos_auth'}"
-    msg.reply(url+api)
-    msg.reply(auth)
 
     # needed while ssl cert is missing from cluster
     options = rejectUnauthorized: false
@@ -40,6 +38,7 @@ module.exports = (robot) ->
         data=JSON.parse body
 #        for key, value of data
 #          msg.send "#{key} - #{value}"
+        msg.send (data)
         msg.send "Kind: #{data.kind}"
         msg.send "apiVersion: #{data.apiVersion}\n"
 
