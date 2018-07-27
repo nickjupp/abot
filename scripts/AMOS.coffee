@@ -30,13 +30,12 @@ module.exports = (robot) ->
     # needed while ssl cert is missing from cluster
     options = rejectUnauthorized: false
     robot.logger.info(url + api + " : " + options)
-    
+
     msg.http(url + api, options)
       .header('Authorization', auth)
       .get() (err, res, body) ->
       # err & response status checking code here
       # your code here
-        msg.send "Body: #{body}"
         try
           data = JSON.parse body
         catch err
@@ -44,17 +43,17 @@ module.exports = (robot) ->
 
 #        for key, value of data
 #          msg.send "#{key} - #{value}"
-#          msg.send "Kind: #{data.kind}"
-#          msg.send "apiVersion: #{data.apiVersion}\n"
+          msg.send "Kind: #{data.kind}"
+          msg.send "apiVersion: #{data.apiVersion}\n"
 #        msg.send data.kind
 #
-#        items=data.items
+        items=data.items
 #
-#        for key of items
-#          netname=items[key].netname
-#          msg.send "\n"
-#          for i, value of items[key].metadata
-#            msg.send "#{i} - #{value}"
+        for key of items
+          netname=items[key].netname
+          msg.send "\n"
+          for i, value of items[key].metadata
+            msg.send "#{i} - #{value}"
 
   # add configuration for the active server to the hubot datastore
   robot.respond /AMOS set server (.*)/i, (res)->
@@ -65,6 +64,16 @@ module.exports = (robot) ->
     robot.brain.set 'amos_server', server
     robot.brain.set 'amos_serverurl', serverurl
     robot.logger.info("AMOS: server set to #{server}")
+
+  # add configuration for the active server as IP address to the hubot datastore
+  robot.respond /AMOS set serverIP (.*)/i, (res)->
+    robot.logger.info("AMOS: set serverIP called")
+    ip =res.match[1]
+    serverurl = "https://#{ip}:8443"
+    res.reply "Adding #{ip} to the brain as #{serverurl}"
+    robot.brain.set 'amos_server', ip
+    robot.brain.set 'amos_serverurl', serverurl
+    robot.logger.info("AMOS: server set to #{ip}")
 
   # add configuration for the active server authentication to the hubot datastore
   robot.respond /AMOS set serverauth (.*)/i, (res)->
