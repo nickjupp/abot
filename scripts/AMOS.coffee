@@ -29,8 +29,9 @@ module.exports = (robot) ->
 
     # needed while ssl cert is missing from cluster
     options = rejectUnauthorized: false
-
-    msg.http(url + api,options)
+    robot.logger.info(url + api + " : " + options)
+    
+    msg.http(url + api, options)
       .header('Authorization', auth)
       .get() (err, res, body) ->
       # err & response status checking code here
