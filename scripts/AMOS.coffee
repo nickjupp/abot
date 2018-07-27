@@ -35,13 +35,17 @@ module.exports = (robot) ->
       .get() (err, res, body) ->
       # err & response status checking code here
       # your code here
-        data=JSON.parse body
+        try
+          data = JSON.parse body
+        catch err
+          robot.emit 'error', err
+
 #        for key, value of data
 #          msg.send "#{key} - #{value}"
 #          msg.send "Kind: #{data.kind}"
 #          msg.send "apiVersion: #{data.apiVersion}\n"
-        msg.send data.kind
-        
+#        msg.send data.kind
+
         items=data.items
 
         for key of items
