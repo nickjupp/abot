@@ -38,10 +38,10 @@ module.exports = (robot) ->
         data=JSON.parse body
 #        for key, value of data
 #          msg.send "#{key} - #{value}"
-        msg.send (data)
-        msg.send "Kind: #{data.kind}"
-        msg.send "apiVersion: #{data.apiVersion}\n"
-
+#          msg.send "Kind: #{data.kind}"
+#          msg.send "apiVersion: #{data.apiVersion}\n"
+        msg.send data.kind
+        
         items=data.items
 
         for key of items
